@@ -14,16 +14,20 @@ class Blockchain {
 	}
 
 	isValidChain(chain){
+		// check if first block in chain is the genesis block
 		if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
 		console.log(JSON.stringify(chain[0]));
+
 		for (let i=1; i<chain.length; i++){
 			const block = chain[i];
-			const lastBlock = chain[i+1]
+			const lastBlock = chain[i-1];
 
 			if (block.lastHash !== lastBlock.hash || 
 				block.hash !== Block.blockHash(block)){
 				return false;
 			}
+			console.log(JSON.stringify(block))
+			console.log(JSON.stringify(lastBlock))
 		}
 		return true;
 	}
